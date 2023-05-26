@@ -1,21 +1,24 @@
 #include "shell.h"
+
 /**
- * _myhistory - displays history list, one command by line, preceded
- * with line numbers, starting from zero (0).
+ * _myhistory - displays the history list, one command by line, preceded
+ *              with line numbers, starting at 0.
  * @info: Structure containing potential arguments. Used to maintain
- * constant function prototype.
- * Return: 0
+ *        constant function prototype.
+ *  Return: Always 0
  */
 int _myhistory(info_t *info)
 {
 	print_list(info->history);
 	return (0);
 }
+
 /**
- * unset_alias - sets an alias to string
- * @info: the parameter struct
- * @str: a string alias
- * Return: 0 on success, 1 on error
+ * unset_alias - sets alias to string
+ * @info: parameter struct
+ * @str: the string alias
+ *
+ * Return: Always 0 on success, 1 on error
  */
 int unset_alias(info_t *info, char *str)
 {
@@ -32,10 +35,12 @@ int unset_alias(info_t *info, char *str)
 	*p = c;
 	return (ret);
 }
+
 /**
- * set_alias - sets an alias to the string
+ * set_alias - sets alias to string
  * @info: parameter struct
- * @str: string alias
+ * @str: the string alias
+ *
  * Return: Always 0 on success, 1 on error
  */
 int set_alias(info_t *info, char *str)
@@ -51,9 +56,11 @@ int set_alias(info_t *info, char *str)
 	unset_alias(info, str);
 	return (add_node_end(&(info->alias), str, 0) == NULL);
 }
+
 /**
- * print_alias - prints the alias string
- * @node: an alias node
+ * print_alias - prints an alias string
+ * @node: the alias node
+ *
  * Return: Always 0 on success, 1 on error
  */
 int print_alias(list_t *node)
@@ -64,7 +71,7 @@ int print_alias(list_t *node)
 	{
 		p = _strchr(node->str, '=');
 		for (a = node->str; a <= p; a++)
-		_putchar(*a);
+			_putchar(*a);
 		_putchar('\'');
 		_puts(p + 1);
 		_puts("'\n");
@@ -72,11 +79,12 @@ int print_alias(list_t *node)
 	}
 	return (1);
 }
+
 /**
- * _myalias - mimics alias builtin the (man alias)
+ * _myalias - mimics the alias builtin (man alias)
  * @info: Structure containing potential arguments. Used to maintain
- * constant function prototype.
- * Return: 0
+ *          constant function prototype.
+ *  Return: Always 0
  */
 int _myalias(info_t *info)
 {

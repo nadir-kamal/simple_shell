@@ -1,70 +1,62 @@
 #include "shell.h"
 
 /**
- * string_copy - copies a string
+ * _strcpy - copies a string
  * @dest: the destination
  * @src: the source
  *
- * Return: pointer to the destination
+ * Return: pointer to destination
  */
-char *string_copy(char *dest, char *src)
+char *_strcpy(char *dest, char *src)
 {
 	int i = 0;
 
 	if (dest == src || src == 0)
-		return dest;
-
+		return (dest);
 	while (src[i])
 	{
 		dest[i] = src[i];
 		i++;
 	}
-
 	dest[i] = 0;
-	return dest;
+	return (dest);
 }
 
 /**
- * string_duplicate - duplicates a string
+ * _strdup - duplicates a string
  * @str: the string to duplicate
  *
  * Return: pointer to the duplicated string
  */
-char *string_duplicate(const char *str)
+char *_strdup(const char *str)
 {
 	int length = 0;
-	char *result;
+	char *ret;
 
 	if (str == NULL)
-		return NULL;
-
+		return (NULL);
 	while (*str++)
 		length++;
-
-	result = malloc(sizeof(char) * (length + 1));
-
-	if (!result)
-		return NULL;
-
+	ret = malloc(sizeof(char) * (length + 1));
+	if (!ret)
+		return (NULL);
 	for (length++; length--;)
-		result[length] = *--str;
-
-	return result;
+		ret[length] = *--str;
+	return (ret);
 }
 
 /**
- * print_string - prints a string
- * @str: the string to be printed
+ *_puts - prints an input string
+ *@str: the string to be printed
  *
  * Return: Nothing
  */
-void print_string(char *str)
+void _puts(char *str)
 {
 	int i = 0;
 
 	if (!str)
 		return;
-
 	while (str[i] != '\0')
 	{
 		_putchar(str[i]);
@@ -73,7 +65,7 @@ void print_string(char *str)
 }
 
 /**
- * print_string - writes the character c to stdout
+ * _putchar - writes the character c to stdout
  * @c: The character to print
  *
  * Return: On success 1.
@@ -82,17 +74,14 @@ void print_string(char *str)
 int _putchar(char c)
 {
 	static int i;
-	static char buffer[WRITE_BUFFER_SIZE];
+	static char buf[WRITE_BUF_SIZE];
 
-	if (c == BUFFER_FLUSH || i >= WRITE_BUFFER_SIZE)
+	if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
 	{
-		write(1, buffer, i);
+		write(1, buf, i);
 		i = 0;
 	}
-
-	if (c != BUFFER_FLUSH)
-		buffer[i++] = c;
-
-	return 1;
+	if (c != BUF_FLUSH)
+		buf[i++] = c;
+	return (1);
 }
-
