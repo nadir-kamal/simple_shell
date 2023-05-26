@@ -60,11 +60,11 @@ size_t print_list(const list_t *h)
 
 	while (h)
 	{
-		print_string(convert_number(h->num, 10, 0));
+		_puts(convert_number(h->num, 10, 0));
 		_putchar(':');
 		_putchar(' ');
-		print_string(h->str ? h->str : "(nil)");
-		print_string("\n");
+		_puts(h->str ? h->str : "(nil)");
+		_puts("\n");
 		h = h->next;
 		i++;
 	}

@@ -52,7 +52,7 @@ ssize_t get_input(info_t *info)
 	ssize_t r = 0;
 	char **buf_p = &(info->arg), *p;
 
-	_putchar(BUFFER_FLUSH);
+	_putchar(BUF_FLUSH);
 	r = input_buf(info, &buf, &len);
 	if (r == -1) /* EOF */
 		return (-1);
@@ -64,7 +64,7 @@ ssize_t get_input(info_t *info)
 		check_chain(info, buf, &j, i, len);
 		while (j < len) /* iterate to semicolon or end */
 		{
-			if (isChainDelimiter(info, buf, &j))
+			if (is_chain(info, buf, &j))
 				break;
 			j++;
 		}
@@ -153,7 +153,7 @@ int _getline(info_t *info, char **ptr, size_t *length)
  */
 void sigintHandler(__attribute__((unused))int sig_num)
 {
-	print_string("\n");
-	print_string("$ ");
-	_putchar(BUFFER_FLUSH);
+	_puts("\n");
+	_puts("$ ");
+	_putchar(BUF_FLUSH);
 }
