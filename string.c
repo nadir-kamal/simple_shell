@@ -1,63 +1,83 @@
+#include <stddef.h>
 #include "shell.h"
 
 /**
- * putchar - prints a single character to the stream
- *@c: a character
- *return : number of chars printed
+ * string_length - returns the length of a string
+ * @str: the string whose length to check
+ *
+ * Return: integer length of string
  */
-int _putchar(char c)
+int string_length(char *str)
 {
-	return (write(STDOUT_FILENO, &c, 1));
+	int length = 0;
+
+	if (!str)
+		return 0;
+
+	while (*str++)
+		length++;
+	return length;
 }
+
 /**
- * _puts - prints a string to the stream
- *@*str: a string
- *return : number of chars printed
+ * string_compare - performs lexicographic comparison of two strings.
+ * @str1: the first string
+ * @str2: the second string
+ *
+ * Return: negative if str1 < str2, positive if str1 > str2, zero if str1 == str2
  */
-int _puts(char *str)
+int string_compare(char *str1, char *str2)
 {
-	int i = 0;
-
-	while (str[i])
+	while (*str1 && *str2)
 	{
-		_putchar(str[i++]);
+		if (*str1 != *str2)
+			return *str1 - *str2;
+		str1++;
+		str2++;
 	}
-	str[i] = '\0';
-	return (i);
+
+	if (*str1 == *str2)
+		return (0);
+	else
+		return *str1 < *str2 ? -1 : 1;
 }
+
 /**
- * _strlen - gets the string length
- * @s - the string
- * return : the string length
+ * starts_with - checks if a string starts with another string
+ * @str: string to search
+ * @prefix: the substring to find
+ *
+ * Return: address of the next character of str or NULL
  */
-int _strlen(char *s)
+char *starts_with(const char *str, const char *prefix)
 {
-	int i = 0;
-
-	while (s[i])
+	while (*prefix)
 	{
-		i++;
+		if (*prefix++ != *str++)
+			return (NULL);
 	}
-	return (i);
+
+	return (char *)str;
 }
+
 /**
- * _strdup - copies a string
- *@str - string
- *return : pointer to a string
+ * string_concatenate - concatenates two strings
+ * @dest: the destination buffer
+ * @src: the source buffer
+ *
+ * Return: pointer to the destination buffer
  */
-char *_strdup(char *str)
+char *string_concatenate(char *dest, char *src)
 {
-	int i = _strlen(str);
-	char *s = malloc(sizeof(char) * i + 1);
+	char *result = dest;
 
-	if (!s)
-	{
-		return (NULL);
-	}
+	while (*dest)
+		dest++;
 
-	while (i + 1 >= 0)
-	{
-		s[i] = str[i];
-	}
-	return (s);
+	while (*src)
+		*dest++ = *src++;
+
+	*dest = *src;
+	return result;
 }
+
